@@ -5,6 +5,9 @@ Rails code would not get into dependency issues.
 
 == Recent changes
 
+=== Version 0.1.1
+The install and uninstall actions now show a summary of the gems installed/uninstalled/failed.
+
 === Version 0.1.0
 First version as a gem.
 Features available are:
