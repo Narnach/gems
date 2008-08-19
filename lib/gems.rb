@@ -18,20 +18,36 @@ class Gems
   
   def install
     puts "Installing all gems and versions in '%s'" % project
+    results = {}
     each_gem_with_version do |gemname, version|
       cmd = "sudo gem install --ignore-dependencies --no-rdoc --no-ri -v %s %s" % [version, gemname]
       puts cmd
-      system(cmd)
+      result = system(cmd)
+      results['%s-%s' % [gemname, version]] = result
     end
+    successful = results.select {|gemname, success| success}
+    unsuccessful = results.select {|gemname, success| !success}
+    puts
+    puts "Successfully installed: %s" % successful.map{|ary| ary[0]}.sort.join(", ")
+    puts
+    puts "Failed to install: %s" % unsuccessful.map{|ary| ary[0]}.sort.join(", ")
   end
   
   def uninstall
     puts "Uninstalling all gems and versions in '%s'" % project
+    results = {}
     each_gem_with_version do |gemname, version|
       cmd = "sudo gem uninstall --ignore-dependencies --executables -v %s %s" % [version, gemname]
       puts cmd
-      system(cmd)
+      result = system(cmd)
+      results['%s-%s' % [gemname, version]] = result
     end
+    successful = results.select {|gemname, success| success}
+    unsuccessful = results.select {|gemname, success| !success}
+    puts
+    puts "Successfully uninstalled: %s" % successful.map{|ary| ary[0]}.sort.join(", ")
+    puts
+    puts "Failed to uninstall: %s" % unsuccessful.map{|ary| ary[0]}.sort.join(", ")
   end
   
   private
