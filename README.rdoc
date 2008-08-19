@@ -1,0 +1,64 @@
+== Gems
+Gems is a simple tool to manage sets of RubyGems. It can be used to install and uninstall large numbers of gems.
+Gems was originally created to replicate a server's gems on my development machine in order to see if my
+Rails code would not get into dependency issues.
+
+== Recent changes
+
+=== Version 0.1.0
+First version as a gem.
+Features available are:
+ * Install gems in a project
+ * Uninstall gems in a project
+ * Import 'gems list' dump as project
+ * Export project to 'gems list'-ish file
+ * List gems in project
+ * List projects
+
+== Installation
+=== From gem
+Use gem to install gems. The gem is located on github.
+  sudo gem install Narnach-gems -s http://gems.github.com
+=== From git
+From the project root, use rake to install:
+  git clone git://github.com/Narnach/gems.git
+  cd gems
+  rake install
+This will build the gem and install it for you.
+
+== Usage
+Output if 'gems help':
+  Syntax:
+    gems <action> <arguments>
+
+  Actions and arguments:
+    install <name>
+      Install all gems in project <name>.
+    uninstall <name>
+      Uninstall all gems in project <name>.
+    list <name>
+      List all gems in project <name>.
+    import <name> <file>
+      Import all gems in <file> into project <name>.
+      This will overwrite the gems currently in this project.
+    export <name> <file>
+      Export all gems in project <name> to <file>.
+      The file will be overwritten and can be parsed by the import action.
+    projects
+      List all stored project names.
+
+== Examples
+To store your current gems as project 'dev', do the following:
+  gem list > gems.dev
+  gems import dev gems.dev
+To switch from project 'dev' to 'server', do the following:
+  gems uninstall dev
+  gems install server
+To export project 'dev' to the file 'gems.dev', do the following:
+  gems export dev gems.dev
+
+== About
+Author:: Wes 'Narnach' Oldenbeuving (narnach@gmail.com)
+Website:: http://www.github.com/Narnach/gems
+Copyright:: Copyright (c) 2008 Wes Oldenbeuving
+License:: MIT license. See MIT-LICENSE (in the gem directory) for license details.

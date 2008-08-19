@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+require 'gems'
+
+action = ARGV.shift.to_s.strip
+project = ARGV.shift.to_s.strip
+
+case action
+when 'install'
+  gems = Gems.new project
+  gems.install
+when 'uninstall'
+  gems = Gems.new project
+  gems.uninstall
+when 'list'
+  gems = Gems.new project
+  gems.list
+when 'import'
+  gems_config = GemsConfig.new(project)
+  gems_file = ARGV.shift.to_s.strip
+  gems_config.import_gems(gems_file)
+when 'export'
+  gems_config = GemsConfig.new(project)
+  gems_file = ARGV.shift.to_s.strip
+  gems_config.export_gems(gems_file)
+when 'projects'
+  gems_config = GemsConfig.new(nil)
+  gems_config.project_names.each do |project|
+    puts project
+  end
+else 'help'
+  puts <<-EOS
+Syntax:
+  gems <action> <arguments>
+  
+Actions and arguments:
+  install <name>
+    Install all gems in project <name>.
+  uninstall <name>
+    Uninstall all gems in project <name>.
+  list <name>
+    List all gems in project <name>.
+  import <name> <file>
+    Import all gems in <file> into project <name>.
+    This will overwrite the gems currently in this project.
+  export <name> <file>
+    Export all gems in project <name> to <file>.
+    The file will be overwritten and can be parsed by the import action.
+  projects
+    List all stored project names.
+  EOS
+end
