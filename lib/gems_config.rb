@@ -26,10 +26,6 @@ class GemsConfig
     project['gems'] ||= {}
   end
   
-  def gems=(new_gems)
-    project['gems'] = new_gems
-  end
-
   def project_names
     projects.keys.sort
   end
@@ -40,6 +36,10 @@ class GemsConfig
     @config ||= load_config
   end
   
+  def gems=(new_gems)
+    project['gems'] = new_gems
+  end
+
   def project
     projects[name] ||= {}
   end
