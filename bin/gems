@@ -31,6 +31,10 @@ when 'configure'
   gems_config = GemsConfig.new(project)
   gemname = ARGV.shift
   gems_config.set_gem_options(gemname, ARGV)
+when 'add'
+  gems_config = GemsConfig.new(project)
+  gems_file = ARGV.shift.to_s.strip
+  gems_config.add_gems(gems_file)
 else 'help'
   puts <<-EOS
 Syntax:
@@ -49,6 +53,8 @@ Actions and arguments:
   export <name> <file>
     Export all gems in project <name> to <file>.
     The file will be overwritten and can be parsed by the import action.
+  add <name> <file>
+    Add the gems <file> to project <name>.
   projects
     List all stored project names.
   configure <name> <gem> [option1 option2 option3]

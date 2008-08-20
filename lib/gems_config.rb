@@ -7,6 +7,16 @@ class GemsConfig
   def initialize(name)
     @name = name
   end
+  
+  def add_gems(file)
+    new_gems = GemsParser.new(file).gems
+    new_gems.each do |gemname, versions|
+      versions.each do |version|
+        add_gem(gemname, version)
+      end
+    end
+    save_config
+  end
 
   def export_gems(file)
     File.open(file,'wb') do |f|
@@ -31,8 +41,17 @@ class GemsConfig
     save_config
   end
 
+  # Load gems. Old data is automatically converted to new data.
   def gems
-    project['gems'] ||= {}
+    gem_data = (project['gems'] ||= {})
+    return gem_data if gem_data.kind_of? Hash
+    new_gems = {}
+    gem_data.each do |gem_ary|
+      new_gems[gem_ary[0]] = gem_ary[1]
+    end
+    project['gems'] = new_gems
+    save_config
+    return gems
   end
 
   def project_names
@@ -40,6 +59,13 @@ class GemsConfig
   end
 
   protected
+  
+  def add_gem(gemname, version)
+    gems[gemname] ||= []
+    gems[gemname] << version
+    gems[gemname].uniq!
+    gems[gemname].sort!
+  end
 
   def config
     @config ||= load_config

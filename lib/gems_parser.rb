@@ -18,7 +18,7 @@ class GemsParser
   private
 
   def parse_gems
-    parsed_gems = []
+    parsed_gems = {}
     str.each do |line|
       gemname, *versions = line.split(" ")
       next if gemname.to_s.size == 0
@@ -28,7 +28,7 @@ class GemsParser
       versions.compact!
       versions.uniq!
       next if versions.size == 0
-      parsed_gems << [gemname, versions]
+      parsed_gems[gemname] = versions
     end
     return parsed_gems
   end
