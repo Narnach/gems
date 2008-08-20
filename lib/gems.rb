@@ -26,7 +26,7 @@ class Gems
     each_gem_with_version do |gemname, version|
       cmd = "sudo gem install --ignore-dependencies --no-rdoc --no-ri -v %s %s" % [version, gemname]
       if gems_config.options_for(gemname).size > 0
-        cmd << ' %s' % gems_config.options_for(gemname).join(" ")
+        cmd << ' -- %s' % gems_config.options_for(gemname).join(" ")
       end
       puts cmd
       result = system(cmd)
