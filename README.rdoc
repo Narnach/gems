@@ -5,6 +5,9 @@ Rails code would not get into dependency issues.
 
 == Recent changes
 
+=== Version 0.1.2
+Allow gem-specific installation options.
+
 === Version 0.1.1
 The install and uninstall actions now show a summary of the gems installed/uninstalled/failed.
 
