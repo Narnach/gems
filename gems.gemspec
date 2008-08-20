@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.name         = 'gems'
   s.summary      = "Gems is a simple tool to manage sets of RubyGems."
   s.description  = "Gems is a simple tool to manage sets of RubyGems. It can be used to install and uninstall large numbers of gems."
-  s.version      = '0.1.2'
+  s.version      = '0.1.3'
   s.date         = '2008-08-19'
   s.platform     = Gem::Platform::RUBY
   s.authors      = ["Wes Oldenbeuving"]

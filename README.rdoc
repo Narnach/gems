@@ -5,6 +5,9 @@ Rails code would not get into dependency issues.
 
 == Recent changes
 
+=== Version 0.1.3
+Bugfix: gem-specific installation options actually work as intended: passing compiler options to gems with C extensions.
+
 === Version 0.1.2
 Allow gem-specific installation options.
 
