@@ -1,22 +1,22 @@
 class GemsParser
   attr_reader :file
-  
+
   def initialize(file)
     @file = file
   end
-  
+
   def gems
     @gems ||= parse_gems
   end
-  
+
   protected
 
   def str
     @str ||= read_file
   end
-  
+
   private
-  
+
   def parse_gems
     parsed_gems = []
     str.each do |line|
@@ -32,7 +32,7 @@ class GemsParser
     end
     return parsed_gems
   end
-  
+
   def read_file
     raise 'File does not exist: "%s"' % file unless File.exist?(file)
     File.read(file)

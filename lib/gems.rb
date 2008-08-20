@@ -2,20 +2,20 @@ require 'gems_config'
 
 class Gems
   attr_reader :project, :gems, :gems_config
-  
+
   def initialize(project)
     @project = project
     @gems_config = GemsConfig.new(@project)
     @gems = @gems_config.gems
   end
-  
+
   def list
     puts 'Gems in "%s":' % project
     gems.each do |gemname, versions|
       puts "%#{longest_gem_name_length}s %s" % [gemname, versions.join(", ")]
     end
   end
-  
+
   def install
     puts "Installing all gems and versions in '%s'" % project
     results = {}
@@ -32,7 +32,7 @@ class Gems
     puts
     puts "Failed to install: %s" % unsuccessful.map{|ary| ary[0]}.sort.join(", ")
   end
-  
+
   def uninstall
     puts "Uninstalling all gems and versions in '%s'" % project
     results = {}
@@ -49,9 +49,9 @@ class Gems
     puts
     puts "Failed to uninstall: %s" % unsuccessful.map{|ary| ary[0]}.sort.join(", ")
   end
-  
+
   private
-  
+
   def each_gem_with_version(&block)
     raise ArgumentError, 'No block provided' unless block
     gems.each do |gemname, versions|
@@ -60,7 +60,7 @@ class Gems
       end
     end
   end
-  
+
   def longest_gem_name_length
     gems.map{|ary| ary[0].size}.max
   end
