@@ -17,16 +17,19 @@ class GemsConfig
   end
   
   def import_gems(file)
-    gems = GemsParser.new(file).gems
-    np = projects[name] ||= {}
-    np['gems'] = gems
+    new_gems = GemsParser.new(file).gems
+    self.gems = new_gems
     save_config
   end
   
   def gems
-    project['gems']
+    project['gems'] ||= {}
   end
   
+  def gems=(new_gems)
+    project['gems'] = new_gems
+  end
+
   def project_names
     projects.keys.sort
   end
@@ -38,7 +41,7 @@ class GemsConfig
   end
   
   def project
-    projects[name]
+    projects[name] ||= {}
   end
   
   def projects
