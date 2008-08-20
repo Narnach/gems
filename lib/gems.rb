@@ -12,7 +12,11 @@ class Gems
   def list
     puts 'Gems in "%s":' % project
     gems.each do |gemname, versions|
-      puts "%#{longest_gem_name_length}s %s" % [gemname, versions.join(", ")]
+      line = "%#{longest_gem_name_length}s %s" % [gemname, versions.join(", ")]
+      if gems_config.options_for(gemname).size > 0
+        line << ' [%s]' % gems_config.options_for(gemname).join(" ")
+      end
+      puts line
     end
   end
 
@@ -21,6 +25,9 @@ class Gems
     results = {}
     each_gem_with_version do |gemname, version|
       cmd = "sudo gem install --ignore-dependencies --no-rdoc --no-ri -v %s %s" % [version, gemname]
+      if gems_config.options_for(gemname).size > 0
+        cmd << ' %s' % gems_config.options_for(gemname).join(" ")
+      end
       puts cmd
       result = system(cmd)
       results['%s-%s' % [gemname, version]] = result

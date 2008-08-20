@@ -22,6 +22,15 @@ class GemsConfig
     save_config
   end
 
+  def options_for(gemname)
+    gem_options[gemname] || []
+  end
+
+  def set_gem_options(gemname, options)
+    gem_options[gemname] = options
+    save_config
+  end
+
   def gems
     project['gems'] ||= {}
   end
@@ -34,6 +43,10 @@ class GemsConfig
 
   def config
     @config ||= load_config
+  end
+
+  def gem_options
+    project['gems_options'] ||= {}
   end
 
   def gems=(new_gems)
