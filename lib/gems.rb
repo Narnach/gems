@@ -1,5 +1,11 @@
 require 'gems_config'
 
+class Hash
+  def longest_key_length
+    map{|key, value| key.to_s.size}.max || 0
+  end
+end
+
 class Gems
   attr_reader :project, :gems, :gems_config
 
@@ -11,13 +17,7 @@ class Gems
 
   def list
     puts 'Gems in "%s":' % project
-    gems.each do |gemname, versions|
-      line = "%#{longest_gem_name_length}s %s" % [gemname, versions.join(", ")]
-      if gems_config.options_for(gemname).size > 0
-        line << ' [%s]' % gems_config.options_for(gemname).join(" ")
-      end
-      puts line
-    end
+    print_gem_list(gems)
   end
 
   def install
@@ -68,7 +68,13 @@ class Gems
     end
   end
 
-  def longest_gem_name_length
-    gems.map{|ary| ary[0].size}.max
+  def print_gem_list(gems)
+    gems.each do |gemname, versions|
+      line = "%#{gems.longest_key_length}s %s" % [gemname, versions.join(", ")]
+      if gems_config.options_for(gemname).size > 0
+        line << ' [%s]' % gems_config.options_for(gemname).join(" ")
+      end
+      puts line
+    end
   end
 end
