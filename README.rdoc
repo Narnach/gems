@@ -6,7 +6,7 @@ Rails code would not get into dependency issues.
 == Recent changes
 
 === Version 0.1.5
-Gem import accepts 'current' as a special file name, which will use the output
+Gems import accepts 'current' as a special file name, which will use the output
 of 'gem list' instead of a real file. This makes it easy to store the current gem configuration.
 
 === Version 0.1.4
