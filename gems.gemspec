@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.name         = 'gems'
   s.summary      = "Gems is a simple tool to manage sets of RubyGems."
   s.description  = "Gems is a simple tool to manage sets of RubyGems. It can be used to install and uninstall large numbers of gems."
-  s.version      = '0.1.5'
+  s.version      = '0.1.6'
   s.date         = '2008-08-19'
   s.platform     = Gem::Platform::RUBY
   s.authors      = ["Wes Oldenbeuving"]
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.bindir       = "bin"
   s.executables  = %w[gems]
   s.require_path = "lib"
-  s.files        = ['MIT-LICENSE', 'README.rdoc', 'Rakefile', 'bin/gems', 'lib/gems.rb', 'lib/gems_config.rb', 'lib/gems_parser.rb', 'gems.gemspec']
+  s.files        = ['MIT-LICENSE', 'README.rdoc', 'Rakefile', 'bin/gems', 'lib/gems.rb', 'lib/gems_config.rb', 'lib/gems_parser.rb', 'gems.gemspec', 'lib/gems_list.rb']
   s.test_files   = []
 
   # rdoc
