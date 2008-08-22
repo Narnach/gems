@@ -4,7 +4,7 @@ class GemsList < Hash
       self[key] = value
     end
   end
-  
+
   def -(other)
     diff = GemsList.new
     self.each do |gem, versions|
@@ -17,5 +17,14 @@ class GemsList < Hash
       end
     end
     diff
+  end
+
+  def each_gem_with_version(&block)
+    raise ArgumentError, 'No block provided' unless block
+    self.each do |gemname, versions|
+      versions.each do |version|
+        block.call(gemname, version)
+      end
+    end
   end
 end
