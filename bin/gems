@@ -50,6 +50,7 @@ Actions and arguments:
   import <name> <file>
     Import all gems in <file> into project <name>.
     This will overwrite the gems currently in this project.
+    The special file 'current' will use the output of `gems list` instead of a file.
   export <name> <file>
     Export all gems in project <name> to <file>.
     The file will be overwritten and can be parsed by the import action.

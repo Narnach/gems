@@ -40,25 +40,30 @@ From the project root, use rake to install:
 This will build the gem and install it for you.
 
 == Usage
-Output if 'gems help':
+Output if 'gems help', with some changes to make them legible in RDoc:
   Syntax:
-    gems <action> <arguments>
+    gems 'action' 'arguments'
 
   Actions and arguments:
-    install <name>
-      Install all gems in project <name>.
-    uninstall <name>
-      Uninstall all gems in project <name>.
-    list <name>
-      List all gems in project <name>.
-    import <name> <file>
-      Import all gems in <file> into project <name>.
+    install 'name'
+      Install all gems in project 'name'.
+    uninstall 'name'
+      Uninstall all gems in project 'name'.
+    list 'name'
+      List all gems in project 'name'.
+    import 'name' 'file'
+      Import all gems in 'file' into project 'name'.
       This will overwrite the gems currently in this project.
-    export <name> <file>
-      Export all gems in project <name> to <file>.
+      The special file 'current' will use the output of `gems list` instead of a file.
+    export 'name' 'file'
+      Export all gems in project 'name' to 'file'.
       The file will be overwritten and can be parsed by the import action.
+    add 'name' 'file'
+      Add the gems 'file' to project 'name'.
     projects
       List all stored project names.
+    configure 'name' 'gem' [option1 option2 option3]
+      Configure a specific gem inside a project to use specific options when installing.
 
 == Examples
 To store your current gems as project 'dev', do the following:
@@ -71,7 +76,7 @@ To export project 'dev' to the file 'gems.dev', do the following:
   gems export dev gems.dev
 
 == About
-Author:: Wes 'Narnach' Oldenbeuving (narnach@gmail.com)
-Website:: http://www.github.com/Narnach/gems
+Author:: Wes 'Narnach' Oldenbeuving (http://github.com/Narnach)
+Website:: http://github.com/Narnach/gems
 Copyright:: Copyright (c) 2008 Wes Oldenbeuving
 License:: MIT license. See MIT-LICENSE (in the gem directory) for license details.
