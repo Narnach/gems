@@ -34,7 +34,11 @@ class GemsParser
   end
 
   def read_file
-    raise 'File does not exist: "%s"' % file unless File.exist?(file)
-    File.read(file)
+    if file == 'current'
+      return `gem list`
+    else
+      raise 'File does not exist: "%s"' % file unless File.exist?(file)
+      return File.read(file)
+    end
   end
 end
