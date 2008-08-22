@@ -1,4 +1,5 @@
 require 'gems_config'
+require 'gems_parser'
 
 class Hash
   def longest_key_length
@@ -13,6 +14,32 @@ class Gems
     @project = project
     @gems_config = GemsConfig.new(@project)
     @gems = @gems_config.gems
+  end
+
+  def diff_current
+    current_gems = GemsParser.new('current').gems
+    not_in_current = {}
+    in_current = {}
+    current_gems.each do |gem, current_versions|
+      if gems.has_key?(gem)
+        gem_versions = gems[gem]
+        versions_in_profile = gem_versions - current_versions
+        versions_in_current = current_versions - gem_versions
+        not_in_current[gem] = versions_in_profile if versions_in_profile.size > 0
+        in_current[gem] = versions_in_current if versions_in_current.size > 0
+      else
+        in_current[gem] = current_versions
+      end
+    end
+    gems_not_in_current = gems.keys - current_gems.keys
+    gems_not_in_current.each do |gem|
+      not_in_current[gem] = gems[gem]
+    end
+    puts 'Gems unique to "%s":' % project
+    print_gem_list(not_in_current)
+    puts
+    puts 'Gems unique to the current gems list:'
+    print_gem_list(in_current)
   end
 
   def list
