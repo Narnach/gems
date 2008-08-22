@@ -53,7 +53,7 @@ Output if 'gems help', with some changes to make them legible in RDoc:
 
   Actions and arguments:
     install 'name'
-      Install all gems in project 'name'.
+      Install all missing gems in project 'name'.
     uninstall 'name'
       Uninstall all gems in project 'name'.
     diff 'name'
