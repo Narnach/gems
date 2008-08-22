@@ -37,11 +37,11 @@ class Gems
 
   def install
     puts "Installing all gems and versions in '%s'" % project
-    install_gems_list(GemsList.new(gems))
+    install_gems_list(GemsList.new(gems) - current_gems_list)
   end
 
   def switch_from_current
-    current_gems = GemsList.new(GemsParser.new('current').gems)
+    current_gems = current_gems_list
     project_gems = GemsList.new(gems)
 
     to_install = project_gems - current_gems
@@ -57,6 +57,10 @@ class Gems
   end
 
   private
+
+  def current_gems_list
+    @current_gems_list ||= GemsParser.new('current').gems
+  end
 
   def install_gems_list(gems)
     results = {}
