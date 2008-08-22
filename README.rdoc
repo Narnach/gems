@@ -5,6 +5,9 @@ Rails code would not get into dependency issues.
 
 == Recent changes
 
+=== Version 0.1.7
+Gem install only installs missing gems; it does not re-install gems.
+
 === Version 0.1.6
 Added gems diff and gems switch commands to make it easy to compare and switch the gems of multiple projects.
 
