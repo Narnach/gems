@@ -24,15 +24,12 @@ class Gems
   end
 
   def list
-    gems_list = projects.inject(GemsList.new) do |gems_list, project|
-      gems_list + GemsConfig.new(project).gems
-    end
     list_name = projects.size == 1 ? 'Gems in' : 'Union of all gems in'
     projects_list = projects.join(", ")
     puts '%s %s:' % [list_name, projects_list]
-    print_gem_list(gems_list)
+    print_gem_list(projects_gems)
   end
-  
+
   def install
     puts "Installing all gems and versions in '%s'" % project
     install_gems_list(gems - current_gems_list)
@@ -85,6 +82,12 @@ class Gems
         line << ' [%s]' % gems_config.options_for(gemname).join(" ")
       end
       puts line
+    end
+  end
+
+  def projects_gems
+    @projects_gems ||= projects.inject(GemsList.new) do |gems_list, project|
+      gems_list + GemsConfig.new(project).gems
     end
   end
 
