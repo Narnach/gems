@@ -36,8 +36,9 @@ class Gems
   end
 
   def switch_from_current
-    to_install = gems - current_gems_list
-    to_uninstall = current_gems_list - gems
+    puts 'Switching to %s:' % projects.join(", ")
+    to_install = projects_gems - current_gems_list
+    to_uninstall = current_gems_list - projects_gems
 
     install_gems_list(to_install)
     uninstall_gems_list(to_uninstall)
