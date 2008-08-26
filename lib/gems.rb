@@ -18,10 +18,8 @@ class Gems
   end
 
   def diff_current
-    current_gems = GemsList.new(GemsParser.new('current').gems)
-    project_gems = GemsList.new(gems)
-    not_in_current = project_gems - current_gems
-    in_current = current_gems - project_gems
+    not_in_current = gems - current_gems_list
+    in_current = current_gems_list - gems
 
     puts 'Gems unique to "%s":' % project
     print_gem_list(not_in_current)
@@ -37,15 +35,12 @@ class Gems
 
   def install
     puts "Installing all gems and versions in '%s'" % project
-    install_gems_list(GemsList.new(gems) - current_gems_list)
+    install_gems_list(gems - current_gems_list)
   end
 
   def switch_from_current
-    current_gems = current_gems_list
-    project_gems = GemsList.new(gems)
-
-    to_install = project_gems - current_gems
-    to_uninstall = current_gems - project_gems
+    to_install = gems - current_gems_list
+    to_uninstall = current_gems_list - gems
 
     install_gems_list(to_install)
     uninstall_gems_list(to_uninstall)
@@ -53,7 +48,7 @@ class Gems
 
   def uninstall
     puts "Uninstalling all gems and versions in '%s'" % project
-    uninstall_gems_list(GemsList.new(gems))
+    uninstall_gems_list(gems)
   end
 
   private
