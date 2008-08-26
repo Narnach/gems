@@ -91,6 +91,11 @@ To switch from project 'dev' to 'server', do the following:
 To export project 'dev' to the file 'gems.dev', do the following:
   gems export dev gems.dev
 
+== Ideas / plans / todo
+* Allow combined profiles 'gems install one+two+three', which installs all gems in one or two or three.
+* Switch to combined profiles
+* List combined profiles
+
 == About
 Author:: Wes 'Narnach' Oldenbeuving (http://github.com/Narnach)
 Website:: http://github.com/Narnach/gems
