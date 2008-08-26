@@ -5,6 +5,9 @@ Rails code would not get into dependency issues.
 
 == Recent changes
 
+=== Version 0.2.0
+Most gems commands can now work on multiple projects at the same time. The 'gems help' command has been updated to reflect this.
+
 === Version 0.1.7
 Gem install only installs missing gems; it does not re-install gems.
 
@@ -50,36 +53,8 @@ From the project root, use rake to install:
 This will build the gem and install it for you.
 
 == Usage
-Output if 'gems help', with some changes to make them legible in RDoc:
-  Syntax:
-    gems 'action' 'arguments'
-
-  Actions and arguments:
-    install 'name'
-      Install all missing gems in project 'name'.
-    uninstall 'name'
-      Uninstall all gems in project 'name'.
-    diff 'name'
-      See difference between the current gem configuration and that of project 'name'.
-    switch 'name'
-      Switch to the exact gem configuration in project 'name'.
-      This will preserve all shared gems in the current state and in the target
-      project, only installing and uninstalling what is needed.
-    list 'name'
-      List all gems in project 'name'.
-    import 'name' 'file'
-      Import all gems in 'file' into project 'name'.
-      This will overwrite the gems currently in this project.
-      The special file 'current' will use the output of `gems list` instead of a file.
-    export 'name' 'file'
-      Export all gems in project 'name' to 'file'.
-      The file will be overwritten and can be parsed by the import action.
-    add 'name' 'file'
-      Add the gems 'file' to project 'name'.
-    projects
-      List all stored project names.
-    configure 'name' 'gem' [option1 option2 option3]
-      Configure a specific gem inside a project to use specific options when installing.
+See the gems help for the syntax
+  gems help
 
 == Examples
 To store your current gems as project 'dev', do the following:
@@ -88,13 +63,12 @@ To store your current gems as project 'dev', do the following:
 To switch from project 'dev' to 'server', do the following:
   gems uninstall dev
   gems install server
+It is also possible to directly switch to a project:
+  gems switch server
 To export project 'dev' to the file 'gems.dev', do the following:
   gems export dev gems.dev
 
 == Ideas / plans / todo
-* Allow combined profiles 'gems install one+two+three', which installs all gems in one or two or three.
-* Switch to combined profiles
-* List combined profiles
 
 == About
 Author:: Wes 'Narnach' Oldenbeuving (http://github.com/Narnach)
