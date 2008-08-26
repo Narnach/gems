@@ -13,10 +13,10 @@ class Gems
   end
 
   def diff_current
-    not_in_current = gems - current_gems_list
-    in_current = current_gems_list - gems
+    not_in_current = projects_gems - current_gems_list
+    in_current = current_gems_list - projects_gems
 
-    puts 'Gems unique to "%s":' % project
+    puts 'Gems unique to "%s":' % projects.join(", ")
     print_gem_list(not_in_current)
     puts
     puts 'Gems unique to the current gems list:'

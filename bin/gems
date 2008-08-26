@@ -36,7 +36,7 @@ when 'add'
   gems_file = ARGV.shift.to_s.strip
   gems_config.add_gems(gems_file)
 when 'diff'
-  gems = Gems.new project
+  gems = Gems.new([project] + ARGV)
   gems.diff_current
 when 'switch'
   gems = Gems.new project
