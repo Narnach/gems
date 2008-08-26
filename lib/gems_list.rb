@@ -21,10 +21,7 @@ class GemsList < Hash
 
   # Returns a new Gemlist which is the union of both GemLists.
   def +(other)
-    union = GemList.new
-    self.each do |gem, versions|
-      union[gem] = versions
-    end
+    union = self.dup
     other.each do |gem, versions|
       if union.has_key? gem
         union[gem] = (union[gem] + versions).uniq.sort
