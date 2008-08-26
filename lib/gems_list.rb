@@ -43,4 +43,8 @@ class GemsList < Hash
       end
     end
   end
+
+  def longest_key_length
+    map{|key, value| key.to_s.size}.max || 0
+  end
 end

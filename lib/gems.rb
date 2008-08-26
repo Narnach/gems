@@ -1,7 +1,6 @@
 require 'gems_config'
 require 'gems_parser'
 require 'gems_list'
-require 'longest_key_length'
 
 class Gems
   attr_reader :project, :gems, :gems_config
