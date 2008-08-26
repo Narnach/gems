@@ -51,14 +51,14 @@ Actions and arguments:
     Install all missing gems in project <name>.
   uninstall <name>
     Uninstall all gems in project <name>.
-  diff <name>
-    See difference between the current gem configuration and that of project <name>.
+  diff <name1> [name2 .. nameN]
+    See difference between the current gem configuration and that of the union of projects name1..nameN.
   switch <name>
     Switch to the exact gem configuration in project <name>.
     This will preserve all shared gems in the current state and in the target
     project, only installing and uninstalling what is needed.
-  list <name>
-    List all gems in project <name>.
+  list <name1> [name2 .. nameN]
+    List all gems in union of projects name1..nameN.
   import <name> <file>
     Import all gems in <file> into project <name>.
     This will overwrite the gems currently in this project.
