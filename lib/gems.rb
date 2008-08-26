@@ -1,12 +1,7 @@
 require 'gems_config'
 require 'gems_parser'
 require 'gems_list'
-
-class Hash
-  def longest_key_length
-    map{|key, value| key.to_s.size}.max || 0
-  end
-end
+require 'longest_key_length'
 
 class Gems
   attr_reader :project, :gems, :gems_config
