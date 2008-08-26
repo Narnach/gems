@@ -19,6 +19,22 @@ class GemsList < Hash
     diff
   end
 
+  # Returns a new Gemlist which is the union of both GemLists.
+  def +(other)
+    union = GemList.new
+    self.each do |gem, versions|
+      union[gem] = versions
+    end
+    other.each do |gem, versions|
+      if union.has_key? gem
+        union[gem] = (union[gem] + versions).uniq.sort
+      else
+        union[gem] = versions
+      end
+    end
+    union
+  end
+
   def each_gem_with_version(&block)
     raise ArgumentError, 'No block provided' unless block
     self.each do |gemname, versions|
