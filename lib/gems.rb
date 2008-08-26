@@ -3,10 +3,11 @@ require 'gems_parser'
 require 'gems_list'
 
 class Gems
-  attr_reader :project, :gems, :gems_config
+  attr_reader :project, :projects, :gems, :gems_config
 
-  def initialize(project)
-    @project = project
+  def initialize(*projects)
+    @projects = projects.flatten
+    @project = projects.first
     @gems_config = GemsConfig.new(@project)
     @gems = @gems_config.gems
   end
@@ -23,10 +24,15 @@ class Gems
   end
 
   def list
-    puts 'Gems in "%s":' % project
-    print_gem_list(gems)
+    gems_list = projects.inject(GemsList.new) do |gems_list, project|
+      gems_list + GemsConfig.new(project).gems
+    end
+    list_name = projects.size == 1 ? 'Gems in' : 'Union of all gems in'
+    projects_list = projects.join(", ")
+    puts '%s %s:' % [list_name, projects_list]
+    print_gem_list(gems_list)
   end
-
+  
   def install
     puts "Installing all gems and versions in '%s'" % project
     install_gems_list(gems - current_gems_list)

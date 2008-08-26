@@ -12,7 +12,7 @@ when 'uninstall'
   gems = Gems.new project
   gems.uninstall
 when 'list'
-  gems = Gems.new project
+  gems = Gems.new([project] + ARGV)
   gems.list
 when 'import'
   gems_config = GemsConfig.new(project)
