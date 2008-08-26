@@ -31,8 +31,8 @@ class Gems
   end
 
   def install
-    puts "Installing all gems and versions in '%s'" % project
-    install_gems_list(gems - current_gems_list)
+    puts "Installing all gems and versions in '%s'" % projects.join(", ")
+    install_gems_list(projects_gems - current_gems_list)
   end
 
   def switch_from_current
@@ -45,8 +45,8 @@ class Gems
   end
 
   def uninstall
-    puts "Uninstalling all gems and versions in '%s'" % project
-    uninstall_gems_list(gems)
+    puts "Uninstalling all gems and versions in '%s'" % projects.join(", ")
+    uninstall_gems_list(projects_gems)
   end
 
   private

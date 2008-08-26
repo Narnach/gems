@@ -6,10 +6,10 @@ project = ARGV.shift.to_s.strip
 
 case action
 when 'install'
-  gems = Gems.new project
+  gems = Gems.new([project] + ARGV)
   gems.install
 when 'uninstall'
-  gems = Gems.new project
+  gems = Gems.new([project] + ARGV)
   gems.uninstall
 when 'list'
   gems = Gems.new([project] + ARGV)
@@ -47,10 +47,10 @@ Syntax:
   gems <action> <arguments>
 
 Actions and arguments:
-  install <name>
-    Install all missing gems in project <name>.
-  uninstall <name>
-    Uninstall all gems in project <name>.
+  install <name1> [name2 .. nameN]
+    Install all missing gems in project name1..nameN.
+  uninstall <name1> [name2 .. nameN]
+    Uninstall all gems in project name1..nameN.
   diff <name1> [name2 .. nameN]
     See difference between the current gem configuration and that of the union of projects name1..nameN.
   switch <name1> [name2 .. nameN]
