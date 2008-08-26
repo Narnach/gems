@@ -18,7 +18,7 @@ class GemsParser
   private
 
   def parse_gems
-    parsed_gems = {}
+    parsed_gems = GemsList.new
     str.each do |line|
       gemname, *versions = line.split(" ")
       next if gemname.to_s.size == 0
