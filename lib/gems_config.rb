@@ -7,7 +7,7 @@ class GemsConfig
   def initialize(name)
     @name = name
   end
-  
+
   def add_gems(file)
     new_gems = GemsParser.new(file).gems
     new_gems.each do |gemname, versions|
@@ -41,11 +41,20 @@ class GemsConfig
     save_config
   end
 
-  # Load gems. Old data is automatically converted to new data.
+  # Load gems.
+  #
+  # Returns a GemsList.
+  #
+  # Old data structures are automatically converted to new data structures.
   def gems
-    gem_data = (project['gems'] ||= {})
-    return gem_data if gem_data.kind_of? Hash
-    new_gems = {}
+    gem_data = (project['gems'] ||= GemsList.new)
+    return gem_data if gem_data.kind_of? GemsList
+    if gem_data.kind_of? Hash
+      project['gems'] = GemsList.new(gem_data)
+      save_config
+      return gems
+    end
+    new_gems = GemsList.new
     gem_data.each do |gem_ary|
       new_gems[gem_ary[0]] = gem_ary[1]
     end
@@ -59,7 +68,7 @@ class GemsConfig
   end
 
   protected
-  
+
   def add_gem(gemname, version)
     gems[gemname] ||= []
     gems[gemname] << version
