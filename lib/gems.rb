@@ -36,12 +36,17 @@ class Gems
   end
 
   def switch_from_current
-    puts 'Switching to %s:' % projects.join(", ")
+    puts 'Switching to %s...' % projects.join(", ")
     to_install = projects_gems - current_gems_list
     to_uninstall = current_gems_list - projects_gems
 
-    install_gems_list(to_install)
-    uninstall_gems_list(to_uninstall)
+    puts
+    puts '%s to be installed...' % (to_install.size == 1 ? '1 gem needs' : '%i gems need' % to_install.size)
+    install_gems_list(to_install) if to_install.size > 0
+
+    puts
+    puts '%s to be uninstalled...' % (to_uninstall.size == 1 ? '1 gem needs' : '%i gems need' % to_uninstall.size)
+    uninstall_gems_list(to_uninstall) if to_uninstall.size > 0
   end
 
   def uninstall
@@ -63,17 +68,19 @@ class Gems
         if gems_config.options_for(gemname).size > 0
           cmd << ' -- %s' % gems_config.options_for(gemname).join(" ")
         end
-        puts cmd
+        puts '  ' << cmd
         result = system(cmd)
         results['%s-%s' % [gemname, version]] = result
       end
     end
     successful = results.select {|gemname, success| success}
     unsuccessful = results.select {|gemname, success| !success}
-    puts
-    puts "Successfully installed: %s" % successful.map{|ary| ary[0]}.sort.join(", ")
-    puts
-    puts "Failed to install: %s" % unsuccessful.map{|ary| ary[0]}.sort.join(", ")
+    if successful.size > 0
+      puts "Successfully installed: %s" % successful.map{|ary| ary[0]}.sort.join(", ")
+    end
+    if unsuccessful.size > 0
+      puts "Failed to install: %s" % unsuccessful.map{|ary| ary[0]}.sort.join(", ")
+    end
   end
 
   def print_gem_list(gems)
@@ -96,15 +103,17 @@ class Gems
     results = {}
     gems.each_gem_with_version do |gemname, version|
       cmd = "sudo gem uninstall --ignore-dependencies --executables -v %s %s > /dev/null" % [version, gemname]
-      puts cmd
+      puts '  ' << cmd
       result = system(cmd)
       results['%s-%s' % [gemname, version]] = result
     end
     successful = results.select {|gemname, success| success}
     unsuccessful = results.select {|gemname, success| !success}
-    puts
-    puts "Successfully uninstalled: %s" % successful.map{|ary| ary[0]}.sort.join(", ")
-    puts
-    puts "Failed to uninstall: %s" % unsuccessful.map{|ary| ary[0]}.sort.join(", ")
+    if successful.size > 0
+      puts "Successfully uninstalled: %s" % successful.map{|ary| ary[0]}.sort.join(", ")
+    end
+    if unsuccessful.size > 0
+      puts "Failed to uninstall: %s" % unsuccessful.map{|ary| ary[0]}.sort.join(", ")
+    end
   end
 end
