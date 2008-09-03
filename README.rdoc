@@ -5,6 +5,9 @@ Rails code would not get into dependency issues.
 
 == Recent changes
 
+=== Version 0.2.1
+Console output for 'gems install', 'gems uninstall' and 'gems switch' is nicer.
+
 === Version 0.2.0
 Most gems commands can now work on multiple projects at the same time. The 'gems help' command has been updated to reflect this.
 
