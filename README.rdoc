@@ -75,6 +75,9 @@ To export project 'dev' to the file 'gems.dev', do the following:
   gems export dev gems.dev
 
 == Ideas / plans / todo
+* Interactive adding, removing and up/downgrading of gems within a project
+* Upgrade gems in a project to use a newer versions of its gems
+* Remove old gem versions from a gems project
 
 == About
 Author:: Wes 'Narnach' Oldenbeuving (http://github.com/Narnach)
