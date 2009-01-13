@@ -5,6 +5,9 @@ Rails code would not get into dependency issues.
 
 == Recent changes
 
+=== Version 0.2.2
+All printed gems lists are displayed in alphabetic order by gem name
+
 === Version 0.2.1
 Console output for 'gems install', 'gems uninstall' and 'gems switch' is nicer.
 
