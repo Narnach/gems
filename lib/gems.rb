@@ -84,7 +84,8 @@ class Gems
   end
 
   def print_gem_list(gems)
-    gems.each do |gemname, versions|
+    gems.keys.sort.each do |gemname|
+      versions = gems[gemname]
       line = "%#{gems.longest_key_length}s %s" % [gemname, versions.join(", ")]
       if gems_config.options_for(gemname).size > 0
         line << ' [%s]' % gems_config.options_for(gemname).join(" ")
