@@ -6,40 +6,40 @@ project = ARGV.shift.to_s.strip
 
 case action
 when 'install'
-  gems = Gems.new([project] + ARGV)
+  gems = Gems::Base.new([project] + ARGV)
   gems.install
 when 'uninstall'
-  gems = Gems.new([project] + ARGV)
+  gems = Gems::Base.new([project] + ARGV)
   gems.uninstall
 when 'list'
-  gems = Gems.new([project] + ARGV)
+  gems = Gems::Base.new([project] + ARGV)
   gems.list
 when 'import'
-  gems_config = GemsConfig.new(project)
+  gems_config = Gems::Config.new(project)
   gems_file = ARGV.shift.to_s.strip
   gems_config.import_gems(gems_file)
 when 'export'
-  gems_config = GemsConfig.new(project)
+  gems_config = Gems::Config.new(project)
   gems_file = ARGV.shift.to_s.strip
   gems_config.export_gems(gems_file)
 when 'projects'
-  gems_config = GemsConfig.new(nil)
+  gems_config = Gems::Config.new(nil)
   gems_config.project_names.each do |project|
     puts project
   end
 when 'configure'
-  gems_config = GemsConfig.new(project)
+  gems_config = Gems::Config.new(project)
   gemname = ARGV.shift
   gems_config.set_gem_options(gemname, ARGV)
 when 'add'
-  gems_config = GemsConfig.new(project)
+  gems_config = Gems::Config.new(project)
   gems_file = ARGV.shift.to_s.strip
   gems_config.add_gems(gems_file)
 when 'diff'
-  gems = Gems.new([project] + ARGV)
+  gems = Gems::Base.new([project] + ARGV)
   gems.diff_current
 when 'switch'
-  gems = Gems.new([project] + ARGV)
+  gems = Gems::Base.new([project] + ARGV)
   gems.switch_from_current
 else 'help'
   puts <<-EOS

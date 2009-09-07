@@ -16,7 +16,8 @@ Gem::Specification.new do |s|
   s.require_path = "lib"
   root_files     = %w[MIT-LICENSE README.rdoc Rakefile gems.gemspec]
   bin_files      = %w[gems]
-  lib_files      = %w[gems gems_config gems_parser gems_list]
+  gems_files     = %w[base config list parser updater]
+  lib_files      = %w[gems] + gems_files.map {|f| "gems/#{f}"}
   test_files     = %w[]
   spec_files     = %w[]
   s.test_files   = test_files.map {|f| 'test/%s_test.rb' % f} + spec_files.map {|f| 'spec/%s_spec.rb' % f}
