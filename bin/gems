@@ -4,10 +4,9 @@ require 'gems'
 action = ARGV.shift.to_s.strip
 project = ARGV.shift.to_s.strip
 
-def guess_file_name!(project, file_import_name=true)
+def guess_file_name!(project)
   gems_file = ARGV.shift.to_s.strip
   return gems_file unless gems_file.empty?
-  return 'current' if project == 'current' and file_import_name
   project + '.gems'
 end
 
@@ -26,7 +25,7 @@ when 'import'
   gems_config = Gems::Config.new(project)
   gems_config.import_gems(gems_file)
 when 'export'
-  gems_file = guess_file_name!(project, import=false)
+  gems_file = guess_file_name!(project)
   gems_config = Gems::Config.new(project)
   gems_config.export_gems(gems_file)
 when 'projects'
@@ -71,7 +70,6 @@ Actions and arguments:
     This will overwrite the gems currently in this project.
     The special file 'current' will use the output of `gems list` instead of a file.
     If no [file] is provided, it is guessed by appending '.gems' to <name>.
-    If <name> is 'current' and no [file] is given, [file] is set to 'current'.
   export <name> [file]
     Export all gems in project <name> to [file].
     The file will be overwritten and can be parsed by the import action.
