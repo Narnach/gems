@@ -4,6 +4,13 @@ require 'gems'
 action = ARGV.shift.to_s.strip
 project = ARGV.shift.to_s.strip
 
+def guess_file_name!(project, file_import_name=true)
+  gems_file = ARGV.shift.to_s.strip
+  return gems_file unless gems_file.empty?
+  return 'current' if project == 'current' and file_import_name
+  project + '.gems'
+end
+
 case action
 when 'install'
   gems = Gems::Base.new([project] + ARGV)
@@ -15,19 +22,12 @@ when 'list'
   gems = Gems::Base.new([project] + ARGV)
   gems.list
 when 'import'
-  gems_file = ARGV.shift.to_s.strip
-  if gems_file.empty?
-    if project == 'current'
-      gems_file = 'current'
-    else
-      gems_file = project + '.gems'
-    end
-  end
+  gems_file = guess_file_name!(project)
   gems_config = Gems::Config.new(project)
   gems_config.import_gems(gems_file)
 when 'export'
+  gems_file = guess_file_name!(project, import=false)
   gems_config = Gems::Config.new(project)
-  gems_file = ARGV.shift.to_s.strip
   gems_config.export_gems(gems_file)
 when 'projects'
   gems_config = Gems::Config.new(nil)
@@ -67,14 +67,15 @@ Actions and arguments:
   list <name1> [name2 .. nameN]
     List all gems in union of projects name1..nameN.
   import <name> [file]
-    Import all gems in <file> into project <name>.
+    Import all gems in [file] into project <name>.
     This will overwrite the gems currently in this project.
     The special file 'current' will use the output of `gems list` instead of a file.
     If no [file] is provided, it is guessed by appending '.gems' to <name>.
     If <name> is 'current' and no [file] is given, [file] is set to 'current'.
-  export <name> <file>
-    Export all gems in project <name> to <file>.
+  export <name> [file]
+    Export all gems in project <name> to [file].
     The file will be overwritten and can be parsed by the import action.
+    If no [file] is provided, it is guessed by appending '.gems' to <name>.
   add <name> <file>
     Add the gems <file> to project <name>.
   projects
